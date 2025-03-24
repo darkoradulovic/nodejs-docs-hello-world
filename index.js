@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const crypto = require('crypto');
 const pkg = require('./package.json');
-
+const axios = require('axios');
 
 // App constants
 const port = process.env.PORT || 3000;
@@ -54,8 +54,14 @@ app.options('*', cors());
 const router = express.Router();
 
 // Hello World for index page
-app.get('/', function (req, res) {
-    return res.send("Hello World!");
+app.get('/', async function (req, res) {
+  try {
+      const response = await axios.get('http://ifconfig.me');
+      const ip = response.data;
+      return res.send("Hello World! Your IP is ${ip}");
+  } catch (error) {
+      return res.send("Hello World! Could not fetch IP.");
+  }
 })
 
 app.get('/api', function (req, res) {
