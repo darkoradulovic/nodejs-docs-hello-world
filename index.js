@@ -62,7 +62,7 @@ app.get('/', async function (req, res) {
   } catch (error) {
       return res.send("Hello World! Could not fetch IP.");
   }
-})
+});
 
 app.get('/api', function (req, res) {
     return res.send("Fabrikam Bank API");
